@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo de Perfumes</title>
+  <meta name="description" content="Catálogo de perfumes: marcas, familias olfativas, notas y precios." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Nav -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="" class="brand-logo" onerror="this.style.display='none'">
+        <span>Catálogo de Perfumes</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Descubrí tu fragancia</h1>
+    <p>Buscá por marca, familia olfativa o nota destacada.</p>
+  </section>
+
+  <!-- Filtros -->
+  <section class="filters">
+    <input id="q" class="input" type="search" placeholder="Buscar (ej: 'vainilla', 'Dior', 'amaderado')">
+    <select id="brand" class="select">
+      <option value="">Marca (todas)</option>
+    </select>
+    <select id="family" class="select">
+      <option value="">Familia (todas)</option>
+    </select>
+    <select id="sort" class="select">
+      <option value="rel">Orden: Relevancia</option>
+      <option value="price_asc">Precio: menor a mayor</option>
+      <option value="price_desc">Precio: mayor a menor</option>
+      <option value="name_asc">Nombre A→Z</option>
+    </select>
+  </section>
+
+  <!-- Grid -->
+  <main id="catalogo" class="grid"></main>
+
+  <!-- Modal Detalle -->
+  <dialog id="detailModal" class="modal">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <div class="modal-body">
+        <img id="mImg" alt="">
+        <div class="modal-info">
+          <h2 id="mName"></h2>
+          <p id="mBrand" class="muted"></p>
+          <p id="mDesc"></p>
+          <div class="chips" id="mNotes"></div>
+          <div class="tags">
+            <span id="mFamily" class="tag"></span>
+            <span id="mGender" class="tag"></span>
+            <span id="mType" class="tag"></span>
+          </div>
+          <div class="price">
+            <span id="mPrice"></span>
+            <span id="mSize"></span>
+          </div>
+          <div class="cta">
+            <a id="mWhatsApp" class="btn" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer id="contacto" class="footer">
+    <p>¿Consultas o pedidos mayoristas? <a href="mailto:ventas@tu-dominio.com">ventas@tu-dominio.com</a></p>
+    <small>© <span id="y"></span> Tu Marca.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
