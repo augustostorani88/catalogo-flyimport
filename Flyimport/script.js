@@ -1,169 +1,193 @@
-// ============== DATOS ==============
-// Editá este array con tus perfumes.
-// img: ruta relativa en /assets
-const PRODUCTS = [
-  {
-    id: "sauvage",
-    name: "Dior Sauvage EDT",
-    brand: "Dior",
-    family: "Aromático Fougère",
-    gender: "Hombre",
-    type: "EDT",
-    notes: ["Bergamota", "Pimienta", "Ambroxan"],
-    price: 145000,        // número (sin $ ni puntos)
-    size: "100 ml",
-    img: "assets/sauvage.jpg",
-    description: "Fresco y vibrante, mezcla cítrica especiada con un fondo ambarado limpio."
-  },
-  {
-    id: "no5",
-    name: "Chanel N°5 EDP",
-    brand: "Chanel",
-    family: "Floral Aldehídica",
-    gender: "Mujer",
-    type: "EDP",
-    notes: ["Ylang-Ylang", "Jazmín", "Aldehídos", "Sándalo"],
-    price: 210000,
-    size: "100 ml",
-    img: "assets/chanel-no5.jpg",
-    description: "Icono atemporal: bouquet floral sofisticado con fondo cremoso."
-  },
-  {
-    id: "lightblue",
-    name: "Dolce & Gabbana Light Blue",
-    brand: "Dolce & Gabbana",
-    family: "Cítrico Frutal",
-    gender: "Mujer",
-    type: "EDT",
-    notes: ["Limón", "Manzana", "Cedro"],
-    price: 118000,
-    size: "100 ml",
-    img: "assets/lightblue.jpg",
-    description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
-  }
-];
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo de Perfumes</title>
+  <meta name="description" content="Catálogo de perfumes: marcas, familias olfativas, notas y precios." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-// ============== UTIL ==============
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => [...document.querySelectorAll(sel)];
-const fmt = (n) => n.toLocaleString('es-AR', { style:'currency', currency:'ARS', maximumFractionDigits:0 });
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-const state = {
-  q: "",
-  brand: "",
-  family: "",
-  sort: "rel"
-};
+<body>
+  <!-- Promo strip -->
+  <div class="promo">
+    <div class="promo-inner">
+      <span>💥 <b>HOT SALE</b>: 10% OFF extra con código <b>JOTAfumaFINO</b></span>
+      <span>·</span>
+      <span>🚚 Envío gratis desde $200.000</span>
+      <span>·</span>
+      <span>💳 Hasta 6 cuotas sin interés</span>
+    </div>
+  </div>
 
-// ============== INICIALIZACIÓN ==============
-function initFilters() {
-  // Marcas únicas
-  const brands = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
-  const brandSel = $("#brand");
-  brands.forEach(b => {
-    const o = document.createElement("option");
-    o.value = b; o.textContent = b;
-    brandSel.appendChild(o);
-  });
-
-  // Familias únicas
-  const fams = Array.from(new Set(PRODUCTS.map(p => p.family))).sort();
-  const famSel = $("#family");
-  fams.forEach(f => {
-    const o = document.createElement("option");
-    o.value = f; o.textContent = f;
-    famSel.appendChild(o);
-  });
-
-  // Eventos
-  $("#q").addEventListener("input", (e)=>{ state.q = e.target.value.trim().toLowerCase(); render(); });
-  $("#brand").addEventListener("change", (e)=>{ state.brand = e.target.value; render(); });
-  $("#family").addEventListener("change", (e)=>{ state.family = e.target.value; render(); });
-  $("#sort").addEventListener("change", (e)=>{ state.sort = e.target.value; render(); });
-
-  // Footer año
-  $("#y").textContent = new Date().getFullYear();
-}
-
-// ============== RENDER ==============
-function matches(p) {
-  const q = state.q;
-  const inText = (s) => (s||"").toLowerCase().includes(q);
-  const notes = (p.notes||[]).join(" ").toLowerCase();
-
-  const qOk = !q || inText(p.name) || inText(p.brand) || inText(p.family) || inText(notes);
-  const bOk = !state.brand || p.brand === state.brand;
-  const fOk = !state.family || p.family === state.family;
-  return qOk && bOk && fOk;
-}
-function sortFn(a,b){
-  switch(state.sort){
-    case "price_asc": return a.price - b.price;
-    case "price_desc": return b.price - a.price;
-    case "name_asc": return a.name.localeCompare(b.name);
-    default: return 0; // relevancia básica
-  }
-}
-
-function render(){
-  const container = $("#catalogo");
-  container.innerHTML = "";
-
-  const items = PRODUCTS.filter(matches).sort(sortFn);
-
-  if(items.length === 0){
-    container.innerHTML = `<p style="opacity:.7">No se encontraron productos.</p>`;
-    return;
-  }
-
-  for(const p of items){
-    const card = document.createElement("article");
-    card.className = "card";
-    card.innerHTML = `
-      <img class="card-img" src="${p.img}" alt="${p.name}" loading="lazy">
-      <div class="card-body">
-        <h3 class="card-title">${p.name}</h3>
-        <p class="card-sub">${p.brand}</p>
-        <div class="card-price">
-          <span class="price-tag">${fmt(p.price)}</span>
-          <span class="size-tag">${p.size}</span>
+  <!-- Header -->
+  <header class="nav">
+    <div class="nav-inner">
+        <div class="brand">
+        <img src="assets/logo.svg" alt="" onerror="this.style.display='none'">
+        <span>Catálogo de Perfumes</span>
         </div>
-        <div class="tags">
-          <span class="tag">${p.family}</span>
-          <span class="tag">${p.gender}</span>
-          <span class="tag">${p.type}</span>
+
+        <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="11" cy="11" r="7" stroke="#9ca3af" stroke-width="2"/>
+        </svg>
+        <input id="q" type="search" placeholder="Buscar perfumes..." autocomplete="off"/>
+        </label>
+
+        <!-- 🔥 REEMPLAZO FAVORITOS + FILTROS POR ESTO -->
+        <button id="openCart" class="icon-btn">
+        🛒 Carrito <span id="cartCount" class="icon-badge" style="display:none">0</span>
+        </button>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="bread">Inicio / Fragancias</div>
+
+  <!-- Main layout -->
+  <section class="layout">
+    <!-- Sidebar filters -->
+    <aside>
+      <div class="filters-card" id="filters">
+        <div class="f-head">
+          <div class="f-title">Filtrar</div>
+          <button class="f-clear" id="clearAll" title="Limpiar filtros">Limpiar</button>
         </div>
-      </div>`;
-    card.addEventListener("click", ()=> openDetail(p));
-    container.appendChild(card);
-  }
-}
+        <div class="chips" id="activeChips"></div>
 
-// ============== MODAL ==============
-const modal = $("#detailModal");
-$("#closeModal").addEventListener("click", ()=> modal.close());
+        <div class="f-sec">
+          <h4>Precio</h4>
+          <div class="range">
+            <input id="priceRange" type="range" min="0" max="" step="1000" value="">
+            <div class="minmax">Hasta <span id="maxPrice">$400.000</span></div>
+          </div>
+        </div>
 
-function openDetail(p){
-  $("#mImg").src = p.img;
-  $("#mImg").alt = p.name;
-  $("#mName").textContent = p.name;
-  $("#mBrand").textContent = p.brand;
-  $("#mDesc").textContent = p.description || "";
-  $("#mNotes").innerHTML = (p.notes||[]).map(n=>`<span class="chip">${n}</span>`).join("");
-  $("#mFamily").textContent = p.family;
-  $("#mGender").textContent = p.gender;
-  $("#mType").textContent = p.type;
-  $("#mPrice").textContent = fmt(p.price);
-  $("#mSize").textContent = p.size;
+        <div class="f-sec" id="fBrands"><h4>Marca</h4><div id="brandList"></div></div>
+        <div class="f-sec" id="fFamilies"><h4>Familia</h4><div id="familyList"></div></div>
+        <div class="f-sec" id="fGender"><h4>Género</h4><div id="genderList"></div></div>
+        <div class="f-sec" id="fType"><h4>Tipo</h4><div id="typeList"></div></div>
+      </div>
+    </aside>
 
-  // Link rápido de WhatsApp con mensaje prellenado
-  const msg = encodeURIComponent(`Hola! Quiero consultar por "${p.name}" (${p.size}) - ${fmt(p.price)}`);
-  const phone = "5491112345678"; // <-- reemplazá con tu número
-  $("#mWhatsApp").href = `https://wa.me/${phone}?text=${msg}`;
+    <!-- Content -->
+    <div>
+      <div class="bar">
+        <div id="resultCount">0 resultados</div>
+        <select id="sort" class="sort">
+          <option value="rel">Orden: Relevancia</option>
+          <option value="price_asc">Precio: menor a mayor</option>
+          <option value="price_desc">Precio: mayor a menor</option>
+          <option value="name_asc">Nombre A→Z</option>
+          <option value="discount_desc">Descuento</option>
+        </select>
+      </div>
 
-  modal.showModal();
-}
+      <div class="grid" id="grid"></div>
+      <div class="pager" id="pager"></div>
+    </div>
+  </section>
 
-// ============== START ==============
-initFilters();
-render();
+  <!-- Modal Detalle -->
+  <dialog id="detailModal">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <div class="modal-body">
+        <img id="mImg" alt="">
+        <div>
+          <h2 id="mName"></h2>
+          <p id="mBrand" class="muted"></p>
+          <div class="price" style="margin:10px 0">
+            <span id="mPrice" class="price-now"></span>
+            <span id="mOld" class="price-old"></span>
+          </div>
+          <div id="mInstall" class="install"></div>
+          <p id="mDesc" style="margin-top:8px"></p>
+          <div class="chips" id="mNotes"></div>
+          <div class="chips">
+            <span id="mFamily" class="chip"></span>
+            <span id="mGender" class="chip"></span>
+            <span id="mType" class="chip"></span>
+          </div>
+          <div class="cta-row">
+            <button id="mAddFav" class="btn secondary">❤️ Favorito</button>
+            <a id="mWhatsApp" class="btn" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h4>Suscribite al newsletter</h4>
+        <p class="muted">Descuentos y lanzamientos exclusivos.</p>
+        <div class="newsletter">
+          <input id="email" type="email" placeholder="tu@email.com"/>
+          <button id="subscribe">Suscribirme</button>
+        </div>
+      </div>
+      <div>
+        <h4>Ayuda</h4>
+        <div class="trust">
+          <span>📦 Cambios y devoluciones</span>
+          <span>🔒 Compras seguras</span>
+          <span>📞 Contacto</span>
+        </div>
+      </div>
+      <div>
+        <h4>Medios</h4>
+        <div class="trust">
+          <span>💳 Tarjetas</span>
+          <span>💵 Transferencia</span>
+          <span>🏦 Billeteras</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+<!-- 🛒 SIDEBAR CARRITO -->
+<aside id="cartSidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h2>Mi carrito de compra</h2>
+    <button id="closeCart">×</button>
+  </div>
+
+  <div id="cartItems" class="cart-items"></div>
+
+  <div class="cart-footer">
+  <div class="cart-summary">
+    <div class="cart-line">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">$0</span>
+    </div>
+    <div class="cart-line" id="cartDiscountRow" style="display:none">
+      <span>Descuento 20% (5+ fragancias)</span>
+      <span id="cartDiscount">-$0</span>
+    </div>
+    <div class="cart-line cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0</span>
+    </div>
+  </div>
+  <button id="buyNow" class="btn">Comprar ahora</button>
+  <button id="keepShopping" class="btn secondary">Seguir comprando</button>
+</div>
+
+</aside>
+
+<div id="cartBackdrop" class="cart-backdrop"></div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
