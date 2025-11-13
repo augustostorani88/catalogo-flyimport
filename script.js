@@ -1,49 +1,90 @@
 // =================== DATOS ===================
-// Agregá listPrice si querés mostrar descuento.
+// Agregá listPrice si querés mostrar descuento tachado.
 const PRODUCTS = [
-  { id:"sauvage", name:"Dior Sauvage EDT", brand:"Dior", family:"Aromático Fougère", gender:"Hombre", type:"EDT", notes:["Bergamota","Pimienta","Ambroxan"], price:145000, listPrice:180000, size:"100 ml", img:"assets/sauvage.jpg", description:"Fresco y vibrante, mezcla cítrica especiada con un fondo ambarado limpio." },
-  { id:"no5", name:"Chanel N°5 EDP", brand:"Chanel", family:"Floral Aldehídica", gender:"Mujer", type:"EDP", notes:["Ylang-Ylang","Jazmín","Aldehídos","Sándalo"], price:210000, listPrice:210000, size:"100 ml", img:"assets/chanel-no5.jpg", description:"Icono atemporal: bouquet floral sofisticado con fondo cremoso." },
-  { id:"lightblue", name:"Dolce & Gabbana Light Blue", brand:"Dolce & Gabbana", family:"Cítrico Frutal", gender:"Mujer", type:"EDT", notes:["Limón","Manzana","Cedro"], price:118000, listPrice:140000, size:"100 ml", img:"assets/lightblue.jpg", description:"Brillante y veraniega, cítrica con toques frutales y madera clara." }
+  {
+    id: "sauvage",
+    name: "Dior Sauvage EDT",
+    brand: "Dior",
+    family: "Aromático Fougère",
+    gender: "Hombre",
+    type: "EDT",
+    notes: ["Bergamota", "Pimienta", "Ambroxan"],
+    price: 145000,
+    listPrice: 180000,
+    size: "100 ml",
+    img: "assets/sauvage.jpg",
+    description: "Fresco y vibrante, mezcla cítrica especiada con un fondo ambarado limpio."
+  },
+  {
+    id: "no5",
+    name: "Chanel N°5 EDP",
+    brand: "Chanel",
+    family: "Floral Aldehídica",
+    gender: "Mujer",
+    type: "EDP",
+    notes: ["Ylang-Ylang", "Jazmín", "Aldehídos", "Sándalo"],
+    price: 210000,
+    listPrice: 210000,
+    size: "100 ml",
+    img: "assets/chanel-no5.jpg",
+    description: "Icono atemporal: bouquet floral sofisticado con fondo cremoso."
+  },
+  {
+    id: "lightblue",
+    name: "Dolce & Gabbana Light Blue",
+    brand: "Dolce & Gabbana",
+    family: "Cítrico Frutal",
+    gender: "Mujer",
+    type: "EDT",
+    notes: ["Limón", "Manzana", "Cedro"],
+    price: 118000,
+    listPrice: 140000,
+    size: "100 ml",
+    img: "assets/lightblue.jpg",
+    description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
+  }
 ];
 
 // precio máximo del catálogo (para el filtro "Hasta")
 const MAX_PRICE = Math.max(...PRODUCTS.map(p => p.price));
 
 // =================== UTILS ===================
-const $  = s=>document.querySelector(s);
-const $$ = s=>[...document.querySelectorAll(s)];
-const ARS = n=> n.toLocaleString('es-AR',{style:'currency', currency:'ARS', maximumFractionDigits:0});
-const pct = (oldp, p)=> oldp && oldp>p ? Math.round((1 - p/oldp)*100) : 0;
-const cuotasN = 6; // 6 cuotas
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const ARS = n => n.toLocaleString('es-AR',{
+  style:'currency', currency:'ARS', maximumFractionDigits:0
+});
+const pct = (oldp, p) => oldp && oldp > p ? Math.round((1 - p/oldp)*100) : 0;
+const cuotasN = 6;
 const envioGratisMin = 200000;
 
-// Wishlist localStorage
+// Wishlist (solo para el modal)
 const WL_KEY = 'wishlist_perfumes';
-const getWL = ()=> new Set(JSON.parse(localStorage.getItem(WL_KEY)||'[]'));
-const setWL = (set)=> localStorage.setItem(WL_KEY, JSON.stringify([...set]));
+const getWL = () => new Set(JSON.parse(localStorage.getItem(WL_KEY) || '[]'));
+const setWL = (set) => localStorage.setItem(WL_KEY, JSON.stringify([...set]));
 
 // Estado filtros / grilla
-const state = { 
-  q:"", 
-  sort:"rel", 
+const state = {
+  q: "",
+  sort: "rel",
   maxPrice: MAX_PRICE,
-  brands:new Set(), 
-  families:new Set(), 
-  genders:new Set(), 
-  types:new Set(), 
-  page:1, 
-  perPage:12 
+  brands:  new Set(),
+  families:new Set(),
+  genders: new Set(),
+  types:   new Set(),
+  page: 1,
+  perPage: 12
 };
 
 // =================== CARRITO ===================
 let CART = [];
 
 function renderCart(){
-  const box = $('#cartItems');
-  const totalEl = $('#cartTotal');
-  const subtotalEl = $('#cartSubtotal');
+  const box         = $('#cartItems');
+  const totalEl     = $('#cartTotal');
+  const subtotalEl  = $('#cartSubtotal');
   const discountRow = $('#cartDiscountRow');
-  const discountEl = $('#cartDiscount');
+  const discountEl  = $('#cartDiscount');
   box.innerHTML = '';
 
   let subtotal = 0;
@@ -70,20 +111,19 @@ function renderCart(){
     box.appendChild(div);
   });
 
-  // 🧮 Descuento 20% si hay 5 o más fragancias
+  // Descuento 20% si hay 5 o más fragancias
   let discount = 0;
   if (totalQty >= 5){
     discount = Math.round(subtotal * 0.20);
   }
   const total = subtotal - discount;
 
-  // Mostrar subtotal / descuento / total
   if(subtotalEl) subtotalEl.textContent = ARS(subtotal);
   if(discountRow && discountEl){
     if(discount > 0){
       discountRow.style.display = 'flex';
       discountEl.textContent = '-' + ARS(discount);
-    }else{
+    } else {
       discountRow.style.display = 'none';
     }
   }
@@ -92,23 +132,22 @@ function renderCart(){
   // Badge del carrito
   const badge = $('#cartCount');
   if(badge){
-    if(totalQty>0){
+    if(totalQty > 0){
       badge.style.display = 'inline-block';
       badge.textContent = totalQty;
-    }else{
+    } else {
       badge.style.display = 'none';
     }
   }
 }
 
-
 function updateQty(id, delta){
-  const item = CART.find(p=>p.id===id);
+  const item = CART.find(p => p.id === id);
   if(!item) return;
 
   item.qty += delta;
   if(item.qty <= 0){
-    CART = CART.filter(p=>p.id!==id);
+    CART = CART.filter(p => p.id !== id);
   }
 
   renderCart();
@@ -116,24 +155,24 @@ function updateQty(id, delta){
 }
 
 function addToCart(product){
-  const found = CART.find(p=>p.id===product.id);
+  const found = CART.find(p => p.id === product.id);
   if(found){
     found.qty++;
-  }else{
+  } else {
     CART.push({...product, qty:1});
   }
   renderCart();
 }
 
 function activateAdd(id){
-  const p = PRODUCTS.find(x=>x.id===id);
+  const p = PRODUCTS.find(x => x.id === id);
   if(!p) return;
 
   addToCart(p);
   updateAddBox(id);
 }
 
-// sincronzar [- 1 +] en la card con el carrito
+// Sincronizar [- 1 +] con el carrito
 function updateAddBox(id){
   const wrapper = document.getElementById("cta-" + id);
   if(!wrapper) return;
@@ -141,8 +180,8 @@ function updateAddBox(id){
   const item = CART.find(i => i.id === id);
 
   if(!item){
-    // volver a mostrar botón Agregar
-    wrapper.innerHTML = `<button class="btn" onclick="activateAdd('${id}')">Agregar</button>`;
+    wrapper.innerHTML =
+      `<button class="btn" onclick="activateAdd('${id}')">Agregar</button>`;
     return;
   }
 
@@ -181,7 +220,7 @@ cartBackdrop.addEventListener('click', ()=>{
 
 // =================== INIT FILTER LISTS ===================
 function optionsFrom(field){
-  return [...new Set(PRODUCTS.map(p=>p[field]).filter(Boolean))].sort();
+  return [...new Set(PRODUCTS.map(p => p[field]).filter(Boolean))].sort();
 }
 
 function checks(list, target, group){
@@ -190,46 +229,45 @@ function checks(list, target, group){
     const id = `${group}-${name}`.replace(/\s+/g,'-');
     const div = document.createElement('label');
     div.className = 'check';
-    div.innerHTML = `<input type="checkbox" id="${id}"><span>${name}</span> <span class="count" data-count="${group.slice(0,-1)}:${name}"></span>`;
+    div.innerHTML =
+      `<input type="checkbox" id="${id}">
+       <span>${name}</span>
+       <span class="count" data-count="${group.slice(0,-1)}:${name}"></span>`;
     target.appendChild(div);
     div.querySelector('input').addEventListener('change', (e)=>{
       const set = state[group];
       e.target.checked ? set.add(name) : set.delete(name);
-      state.page = 1; 
+      state.page = 1;
       render();
     });
   });
 }
 
 function initFilters(){
-  // 🔹 Configuro el slider con el valor máximo real
+  // slider "Hasta"
   const slider = $('#priceRange');
   slider.max = MAX_PRICE;
   slider.value = MAX_PRICE;
   $('#maxPrice').textContent = ARS(MAX_PRICE);
   state.maxPrice = MAX_PRICE;
 
-  // checkboxes
   checks(optionsFrom('brand'),  $('#brandList'),  'brands');
   checks(optionsFrom('family'), $('#familyList'), 'families');
   checks(optionsFrom('gender'), $('#genderList'), 'genders');
   checks(optionsFrom('type'),   $('#typeList'),   'types');
 
-  // búsqueda
   $('#q').addEventListener('input', e=>{
     state.q = e.target.value.trim().toLowerCase();
     state.page = 1;
     render();
   });
 
-  // orden
   $('#sort').addEventListener('change', e=>{
     state.sort = e.target.value;
     state.page = 1;
     render();
   });
 
-  // slider de precio "Hasta"
   slider.addEventListener('input', e=>{
     state.maxPrice = +e.target.value;
     $('#maxPrice').textContent = ARS(state.maxPrice);
@@ -237,7 +275,6 @@ function initFilters(){
     render();
   });
 
-  // limpiar filtros
   $('#clearAll').addEventListener('click', ()=>{
     state.q = '';
     state.sort = 'rel';
@@ -255,22 +292,24 @@ function initFilters(){
     render();
   });
 
-  $('#subscribe').addEventListener('click', ()=>{ 
-    alert('¡Gracias por suscribirte!'); 
+  $('#subscribe').addEventListener('click', ()=>{
+    alert('¡Gracias por suscribirte!');
   });
 }
 
 // =================== MATCH + SORT + PAGINATE ===================
 function match(p){
   const q = state.q;
-  const inTxt = s => (s||'').toLowerCase().includes(q);
-  const notes = (p.notes||[]).join(' ').toLowerCase();
+  const inTxt = s => (s || '').toLowerCase().includes(q);
+  const notes = (p.notes || []).join(' ').toLowerCase();
+
   const qOk = !q || inTxt(p.name) || inTxt(p.brand) || inTxt(p.family) || inTxt(notes);
   const priceOk = p.price <= state.maxPrice;
-  const bOk = state.brands.size===0   || state.brands.has(p.brand);
-  const fOk = state.families.size===0 || state.families.has(p.family);
-  const gOk = state.genders.size===0  || state.genders.has(p.gender);
-  const tOk = state.types.size===0    || state.types.has(p.type);
+  const bOk = state.brands.size   === 0 || state.brands.has(p.brand);
+  const fOk = state.families.size === 0 || state.families.has(p.family);
+  const gOk = state.genders.size  === 0 || state.genders.has(p.gender);
+  const tOk = state.types.size    === 0 || state.types.has(p.type);
+
   return qOk && priceOk && bOk && fOk && gOk && tOk;
 }
 
@@ -293,10 +332,12 @@ function render(){
 
   // counts por facet
   ['brand','family','gender','type'].forEach(field=>{
-    const counts = Object.fromEntries(filtered.reduce((m,p)=>{
-      m.set(p[field], (m.get(p[field])||0)+1 ); 
-      return m; 
-    }, new Map()));
+    const counts = Object.fromEntries(
+      filtered.reduce((m,p)=>{
+        m.set(p[field], (m.get(p[field]) || 0) + 1);
+        return m;
+      }, new Map())
+    );
     $$(`[data-count^="${field}:"]`).forEach(el=>{
       const name = el.getAttribute('data-count').split(':')[1];
       el.textContent = counts[name] ? `(${counts[name]})` : '(0)';
@@ -309,21 +350,21 @@ function render(){
   if(state.maxPrice < MAX_PRICE){
     chips.push({k:'maxPrice', v:`Hasta ${ARS(state.maxPrice)}`});
   }
-  state.brands.forEach(v=>chips.push({k:'brands',v}));
-  state.families.forEach(v=>chips.push({k:'families',v}));
-  state.genders.forEach(v=>chips.push({k:'genders',v}));
-  state.types.forEach(v=>chips.push({k:'types',v}));
+  state.brands.forEach(v   => chips.push({k:'brands',   v}));
+  state.families.forEach(v => chips.push({k:'families', v}));
+  state.genders.forEach(v  => chips.push({k:'genders',  v}));
+  state.types.forEach(v    => chips.push({k:'types',    v}));
 
-  const chipsDiv = $('#activeChips'); 
-  chipsDiv.innerHTML='';
+  const chipsDiv = $('#activeChips');
+  chipsDiv.innerHTML = '';
   chips.forEach(ch=>{
     const span = document.createElement('span');
     span.className = 'chip';
     span.innerHTML = `${ch.v} <button aria-label="Quitar">×</button>`;
     span.querySelector('button').onclick = ()=>{
-      if(ch.k === 'q') {
+      if(ch.k === 'q'){
         state.q = '';
-      } else if (ch.k === 'maxPrice') {
+      } else if (ch.k === 'maxPrice'){
         state.maxPrice = MAX_PRICE;
         const slider = $('#priceRange');
         slider.value = MAX_PRICE;
@@ -338,36 +379,33 @@ function render(){
 
   // paginación
   const total = filtered.length;
-  const pages = Math.max(1, Math.ceil(total/state.perPage));
-  if(state.page>pages) state.page = pages;
-  const start = (state.page-1)*state.perPage;
-  const items = filtered.slice(start, start+state.perPage);
+  const pages = Math.max(1, Math.ceil(total / state.perPage));
+  if(state.page > pages) state.page = pages;
+  const start = (state.page - 1) * state.perPage;
+  const items = filtered.slice(start, start + state.perPage);
 
-  $('#resultCount').textContent = `${total} resultado${total!==1?'s':''}`;
+  $('#resultCount').textContent =
+    `${total} resultado${total !== 1 ? 's' : ''}`;
 
   grid.innerHTML = '';
-  if(items.length===0){ 
-    grid.innerHTML = '<p class="muted">No se encontraron productos.</p>'; 
+  if(items.length === 0){
+    grid.innerHTML = '<p class="muted">No se encontraron productos.</p>';
+  } else {
+    items.forEach(p => grid.appendChild(cardEl(p)));
   }
-  items.forEach(p=> grid.appendChild(cardEl(p)) );
 
   // pager
   pager.innerHTML = '';
-  for(let i=1;i<=pages;i++){
+  for(let i = 1; i <= pages; i++){
     const b = document.createElement('button');
-    b.className='page'+(i===state.page?' active':'');
-    b.textContent=i;
-    b.onclick=()=>{state.page=i; window.scrollTo({top:0, behavior:'smooth'}); render();};
+    b.className = 'page' + (i === state.page ? ' active' : '');
+    b.textContent = i;
+    b.onclick = ()=>{
+      state.page = i;
+      window.scrollTo({top:0, behavior:'smooth'});
+      render();
+    };
     pager.appendChild(b);
-  }
-
-  // wishlist badge (si existe)
-  const wl = getWL();
-  const c = wl.size; 
-  const wb = $('#wishCount');
-  if(wb){
-    wb.style.display = c? 'inline-block':'none';
-    wb.textContent = c;
   }
 }
 
@@ -375,8 +413,8 @@ function render(){
 function cardEl(p){
   const el = document.createElement('article');
   el.className = 'card';
-  const d = pct(p.listPrice, p.price);
-  const free = p.price >= envioGratisMin;
+
+  const discountPrice = Math.round(p.price * 0.8); // 20% OFF
 
   el.innerHTML = `
     <img class="card-img" src="${p.img}" alt="${p.name}" loading="lazy">
@@ -385,10 +423,12 @@ function cardEl(p){
       <p class="card-sub">${p.brand} · ${p.size}</p>
       <div class="price">
         <span class="price-now">${ARS(p.price)}</span>
-        ${d?`<span class="price-old">${ARS(p.listPrice)}</span>`:''}
+        ${p.listPrice && p.listPrice > p.price
+          ? `<span class="price-old">${ARS(p.listPrice)}</span>`
+          : ''}
       </div>
       <div class="install">
-      ${ARS(Math.round(p.price * 0.8))} llevando 5+ combinable (20%off)
+        ${ARS(discountPrice)} llevando 5+ combinable (20%off)
       </div>
       <div class="cta-row">
         <button class="btn secondary" data-quick>Vista rápida</button>
@@ -399,23 +439,12 @@ function cardEl(p){
     </div>
   `;
 
-  // wishlist state
-  const wl = getWL();
-  const wbtn = el.querySelector('.wish');
-  if(wl.has(p.id)) wbtn.classList.add('active');
-  wbtn.onclick = ()=>{ 
-    const set = getWL(); 
-    set.has(p.id)? set.delete(p.id): set.add(p.id); 
-    setWL(set); 
-    render(); 
-  };
-
   // quick view
-  el.querySelector('[data-quick]').onclick = ()=> openDetail(p);
+  el.querySelector('[data-quick]').onclick = () => openDetail(p);
 
   // click en imagen/título abre modal
-  el.querySelector('.card-img').onclick = ()=> openDetail(p);
-  el.querySelector('.card-title').onclick = ()=> openDetail(p);
+  el.querySelector('.card-img').onclick   = () => openDetail(p);
+  el.querySelector('.card-title').onclick = () => openDetail(p);
 
   return el;
 }
@@ -431,23 +460,27 @@ function openDetail(p){
   $('#mName').textContent = p.name;
   $('#mBrand').textContent = `${p.brand} · ${p.size}`;
   $('#mPrice').textContent = ARS(p.price);
-  $('#mOld').textContent = p.listPrice && p.listPrice>p.price ? ARS(p.listPrice) : '';
-  $('#mInstall').textContent = `${ARS(Math.round(p.price * 0.8))} llevando 5+ combinable (20%off)`;
+  $('#mOld').textContent =
+    p.listPrice && p.listPrice > p.price ? ARS(p.listPrice) : '';
+  $('#mInstall').textContent =
+    `${ARS(Math.round(p.price * 0.8))} llevando 5+ combinable (20%off)`;
   $('#mDesc').textContent = p.description || '';
-  $('#mNotes').innerHTML = (p.notes||[]).map(n=>`<span class='chip'>${n}</span>`).join('');
+  $('#mNotes').innerHTML = (p.notes || [])
+    .map(n => `<span class='chip'>${n}</span>`).join('');
   $('#mFamily').textContent = p.family;
   $('#mGender').textContent = p.gender;
-  $('#mType').textContent = p.type;
+  $('#mType').textContent   = p.type;
 
   const mFav = $('#mAddFav');
-  mFav.onclick = ()=>{ 
-    const set = getWL(); 
-    set.has(p.id)? set.delete(p.id): set.add(p.id); 
-    setWL(set); 
-    render(); 
+  mFav.onclick = ()=>{
+    const set = getWL();
+    set.has(p.id) ? set.delete(p.id) : set.add(p.id);
+    setWL(set);
   };
 
-  const msg = encodeURIComponent(`Hola! Quiero consultar por "${p.name}" (${p.size}) - ${ARS(p.price)}`);
+  const msg = encodeURIComponent(
+    `Hola! Quiero consultar por "${p.name}" (${p.size}) - ${ARS(p.price)}`
+  );
   const phone = '5491112345678'; // <-- TU NÚMERO
   $('#mWhatsApp').href = `https://wa.me/${phone}?text=${msg}`;
 
@@ -457,5 +490,4 @@ function openDetail(p){
 // =================== START ===================
 initFilters();
 render();
-renderCart(); // para inicializar badge en 0
-
+renderCart();
