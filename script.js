@@ -379,9 +379,6 @@ function cardEl(p){
   const free = p.price >= envioGratisMin;
 
   el.innerHTML = `
-    ${d?`<span class="badge">-${d}%</span>`:''}
-    ${free?`<span class="badge free" style="top:42px">ENVÍO GRATIS</span>`:''}
-    <button class="wish" title="Agregar a favoritos">❤</button>
     <img class="card-img" src="${p.img}" alt="${p.name}" loading="lazy">
     <div class="card-body">
       <h3 class="card-title">${p.name}</h3>
@@ -461,3 +458,4 @@ function openDetail(p){
 initFilters();
 render();
 renderCart(); // para inicializar badge en 0
+
