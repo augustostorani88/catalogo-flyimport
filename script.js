@@ -42,6 +42,90 @@ const PRODUCTS = [
     size: "100 ml",
     img: "assets/lightblue.jpg",
     description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
+  },
+    {
+    id: "sauvage",
+    name: "Dior Sauvage EDT",
+    brand: "Dior",
+    family: "Aromático Fougère",
+    gender: "Hombre",
+    type: "EDT",
+    notes: ["Bergamota", "Pimienta", "Ambroxan"],
+    price: 145000,
+    listPrice: 180000,
+    size: "100 ml",
+    img: "assets/sauvage.jpg",
+    description: "Fresco y vibrante, mezcla cítrica especiada con un fondo ambarado limpio."
+  },
+  {
+    id: "no5",
+    name: "Chanel N°5 EDP",
+    brand: "Chanel",
+    family: "Floral Aldehídica",
+    gender: "Mujer",
+    type: "EDP",
+    notes: ["Ylang-Ylang", "Jazmín", "Aldehídos", "Sándalo"],
+    price: 210000,
+    listPrice: 210000,
+    size: "100 ml",
+    img: "assets/chanel-no5.jpg",
+    description: "Icono atemporal: bouquet floral sofisticado con fondo cremoso."
+  },
+  {
+    id: "lightblue",
+    name: "Dolce & Gabbana Light Blue",
+    brand: "Dolce & Gabbana",
+    family: "Cítrico Frutal",
+    gender: "Mujer",
+    type: "EDT",
+    notes: ["Limón", "Manzana", "Cedro"],
+    price: 118000,
+    listPrice: 140000,
+    size: "100 ml",
+    img: "assets/lightblue.jpg",
+    description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
+  }
+    {
+    id: "sauvage",
+    name: "Dior Sauvage EDT",
+    brand: "Dior",
+    family: "Aromático Fougère",
+    gender: "Hombre",
+    type: "EDT",
+    notes: ["Bergamota", "Pimienta", "Ambroxan"],
+    price: 145000,
+    listPrice: 180000,
+    size: "100 ml",
+    img: "assets/sauvage.jpg",
+    description: "Fresco y vibrante, mezcla cítrica especiada con un fondo ambarado limpio."
+  },
+  {
+    id: "no5",
+    name: "Chanel N°5 EDP",
+    brand: "Chanel",
+    family: "Floral Aldehídica",
+    gender: "Mujer",
+    type: "EDP",
+    notes: ["Ylang-Ylang", "Jazmín", "Aldehídos", "Sándalo"],
+    price: 210000,
+    listPrice: 210000,
+    size: "100 ml",
+    img: "assets/chanel-no5.jpg",
+    description: "Icono atemporal: bouquet floral sofisticado con fondo cremoso."
+  },
+  {
+    id: "lightblue",
+    name: "Dolce & Gabbana Light Blue",
+    brand: "Dolce & Gabbana",
+    family: "Cítrico Frutal",
+    gender: "Mujer",
+    type: "EDT",
+    notes: ["Limón", "Manzana", "Cedro"],
+    price: 118000,
+    listPrice: 140000,
+    size: "100 ml",
+    img: "assets/lightblue.jpg",
+    description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
   }
 ];
 
@@ -491,3 +575,4 @@ function openDetail(p){
 initFilters();
 render();
 renderCart();
+
