@@ -43,7 +43,7 @@ const PRODUCTS = [
     img: "assets/lightblue.jpg",
     description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
   },
-    {
+  {
     id: "sauvage",
     name: "Dior Sauvage EDT",
     brand: "Dior",
@@ -84,8 +84,8 @@ const PRODUCTS = [
     size: "100 ml",
     img: "assets/lightblue.jpg",
     description: "Brillante y veraniega, cítrica con toques frutales y madera clara."
-  }
-    {
+  },
+  {
     id: "sauvage",
     name: "Dior Sauvage EDT",
     brand: "Dior",
@@ -575,4 +575,5 @@ function openDetail(p){
 initFilters();
 render();
 renderCart();
+
 
