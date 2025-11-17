@@ -1,140 +1,277 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catálogo de Perfumes</title>
-  <meta name="description" content="Catálogo de perfumes: marcas, familias olfativas, notas y precios." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fly Import — Perfumes</title>
+
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- Promo strip -->
+
+  <!-- =============== PROMO SUPERIOR =============== -->
   <div class="promo">
     <div class="promo-inner">
-      <span>💥 <b>HOT SALE</b>: 10% OFF extra con código <b>JOTAfumaFINO</b></span>
+      <span>💥 <b>HOT SALE</b>: 10% OFF extra con código <b>AROMA10</b></span>
       <span>·</span>
       <span>🚚 Envío gratis desde $200.000</span>
       <span>·</span>
-      <span>💳 Nada de tarjeta, todo en grone</span>
+      <span>💳 Hasta 6 cuotas sin interés</span>
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- =============== NAVBAR =============== -->
   <header class="nav">
     <div class="nav-inner">
-        <div class="brand">
-        <img src="assets/logo.svg" alt="" onerror="this.style.display='none'">
-        <span>Catálogo de Perfumes</span>
-        </div>
 
-        <label class="search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 21l-4.35-4.35" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="11" cy="11" r="7" stroke="#9ca3af" stroke-width="2"/>
-        </svg>
-        <input id="q" type="search" placeholder="Buscar perfumes..." autocomplete="off"/>
-        </label>
+      <div class="brand">
+        <span>Fly Import</span>
+      </div>
 
-        <!-- 🔥 REEMPLAZO FAVORITOS + FILTROS POR ESTO -->
-        <button id="openCart" class="icon-btn">
-        🛒 Carrito <span id="cartCount" class="icon-badge" style="display:none">0</span>
-        </button>
+      <nav class="main-menu">
+        <button id="navHome" class="menu-link active">Inicio</button>
+        <button id="navCatalog" class="menu-link">Productos</button>
+        <button class="menu-link">Acerca de</button>
+        <button class="menu-link">Contacto</button>
+      </nav>
+
+      <button id="openCart" class="icon-btn">
+        🛒 Carrito
+        <span id="cartCount" class="icon-badge" style="display:none;">0</span>
+      </button>
+
     </div>
   </header>
 
-  <!-- Breadcrumb -->
-  <div class="bread">Inicio / Fragancias</div>
+  <!-- =============== PÁGINA DE INICIO =============== -->
+  <section id="homePage" class="home-page">
 
-  <!-- Main layout -->
-  <section class="layout">
-    <!-- Sidebar filters -->
-    <aside>
-      <div class="filters-card" id="filters">
-        <div class="f-head">
-          <div class="f-title">Filtrar</div>
-          <button class="f-clear" id="clearAll" title="Limpiar filtros">Limpiar</button>
+    <!-- Fondo animado aplicado acá -->
+    <div class="hero-anim">
+
+      <!-- Faja animada -->
+      <div class="flyimport-hero-bar">
+        <div class="flyimport-text">
+          Explora tu esencia perfecta · Explora tu esencia perfecta · Explora tu esencia perfecta · Explora tu esencia perfecta ·
         </div>
-        <div class="chips" id="activeChips"></div>
+      </div>
 
-        <div class="f-sec">
-          <h4>Precio</h4>
-          <div class="range">
-            <input id="priceRange" type="range" min="0" max="" step="1000" value="">
-            <div class="minmax">Hasta <span id="maxPrice">$400.000</span></div>
+      <!-- HERO -->
+      <section class="hero-section">
+        <div class="hero-inner">
+
+          <div class="hero-copy">
+            <h1>Explora tu esencia perfecta</h1>
+            <p>Perfumes importados seleccionados especialmente para vos.</p>
+
+            <div class="hero-actions">
+              <button class="btn hero-btn" id="goProductsBtn">Ver productos</button>
+              <button class="btn secondary hero-btn">Conocer más</button>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <img src="assets/FlyImport_logo.png" alt="Fly Import Logo">
+          </div>
+
+        </div>
+      </section>
+
+    </div> <!-- fin hero anim -->
+
+    <!-- =============== PRODUCTOS DESTACADOS =============== -->
+    <section class="featured-section">
+      <h2>Productos destacados</h2>
+
+      <div class="featured-grid">
+
+        <!-- CARD 1 -->
+        <article class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="assets/sauvage.jpg" alt="Dior Sauvage EDT">
+          </div>
+
+          <h3 class="featured-name">Dior Sauvage EDT</h3>
+          <p class="featured-price">$145.000</p>
+
+          <div class="featured-qty">
+            <button class="featured-qty-btn">−</button>
+            <span class="featured-qty-value">1</span>
+            <button class="featured-qty-btn">+</button>
+          </div>
+
+          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="assets/chanel-no5.jpg" alt="Chanel N°5 EDP">
+          </div>
+          <h3 class="featured-name">Chanel N°5 EDP</h3>
+          <p class="featured-price">$210.000</p>
+
+          <div class="featured-qty">
+            <button class="featured-qty-btn">−</button>
+            <span class="featured-qty-value">1</span>
+            <button class="featured-qty-btn">+</button>
+          </div>
+
+          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
+        </article>
+
+        <!-- CARD 3 -->
+        <article class="featured-card">
+          <div class="featured-img-wrap">
+            <img src="assets/lightblue.jpg" alt="Dolce & Gabbana Light Blue">
+          </div>
+
+          <h3 class="featured-name">Dolce & Gabbana Light Blue</h3>
+          <p class="featured-price">$118.000</p>
+
+          <div class="featured-qty">
+            <button class="featured-qty-btn">−</button>
+            <span class="featured-qty-value">1</span>
+            <button class="featured-qty-btn">+</button>
+          </div>
+
+          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
+        </article>
+
+      </div>
+
+    </section> <!-- FIN destacados -->
+
+  </section> <!-- FIN home -->
+
+  <!-- =============== CATÁLOGO (OCULTO) =============== -->
+  <section id="catalogPage" class="catalog-page hidden">
+
+    <div class="bread">Inicio / Fragancias</div>
+
+    <section class="layout">
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="filters-card">
+
+          <div class="f-head">
+            <div class="f-title">Filtrar</div>
+            <button class="f-clear" id="clearAll">Limpiar</button>
+          </div>
+
+          <div class="chips" id="activeChips"></div>
+
+          <div class="f-sec">
+            <h4>Precio</h4>
+            <div class="range">
+              <input id="priceRange" type="range" min="0" max="400000" step="1000">
+              <div class="minmax">Hasta <span id="maxPrice">$0</span></div>
+            </div>
+          </div>
+
+          <div class="f-sec">
+            <h4>Marca</h4>
+            <div id="brandList"></div>
+          </div>
+
+          <div class="f-sec">
+            <h4>Familia</h4>
+            <div id="familyList"></div>
+          </div>
+
+          <div class="f-sec">
+            <h4>Género</h4>
+            <div id="genderList"></div>
+          </div>
+
+          <div class="f-sec">
+            <h4>Tipo</h4>
+            <div id="typeList"></div>
+          </div>
+
+        </div>
+      </aside>
+
+      <main>
+
+        <div class="catalog-top">
+          <label class="search">
+            <input id="q" type="search" placeholder="Buscar perfumes...">
+          </label>
+
+          <select id="sort" class="sort">
+            <option value="rel">Orden: Relevancia</option>
+            <option value="price_asc">Precio: menor a mayor</option>
+            <option value="price_desc">Precio: mayor a menor</option>
+            <option value="name_asc">Nombre A→Z</option>
+          </select>
+        </div>
+
+        <div id="resultCount">0 resultados</div>
+
+        <div id="grid" class="grid"></div>
+        <div id="pager" class="pager"></div>
+
+      </main>
+
+    </section>
+
+    <!-- MODAL PRODUCTO -->
+    <dialog id="detailModal">
+      <div class="modal-card">
+        <button id="closeModal" class="close">×</button>
+
+        <div class="modal-body">
+          <img id="mImg">
+          <div>
+            <h2 id="mName"></h2>
+            <p id="mBrand" class="muted"></p>
+
+            <div class="price">
+              <span id="mPrice" class="price-now"></span>
+              <span id="mOld" class="price-old"></span>
+            </div>
+
+            <p id="mDesc"></p>
+
+            <div class="chips" id="mNotes"></div>
+
+            <div class="chips">
+              <span id="mFamily" class="chip"></span>
+              <span id="mGender" class="chip"></span>
+              <span id="mType" class="chip"></span>
+            </div>
+
+            <div class="cta-row">
+              <button id="mAddFav" class="btn secondary">❤️ Favorito</button>
+              <a id="mWhatsApp" class="btn" target="_blank">Consultar por WhatsApp</a>
+            </div>
+
           </div>
         </div>
 
-        <div class="f-sec" id="fBrands"><h4>Marca</h4><div id="brandList"></div></div>
-        <div class="f-sec" id="fFamilies"><h4>Familia</h4><div id="familyList"></div></div>
-        <div class="f-sec" id="fGender"><h4>Género</h4><div id="genderList"></div></div>
-        <div class="f-sec" id="fType"><h4>Tipo</h4><div id="typeList"></div></div>
       </div>
-    </aside>
+    </dialog>
 
-    <!-- Content -->
-    <div>
-      <div class="bar">
-        <div id="resultCount">0 resultados</div>
-        <select id="sort" class="sort">
-          <option value="rel">Orden: Relevancia</option>
-          <option value="price_asc">Precio: menor a mayor</option>
-          <option value="price_desc">Precio: mayor a menor</option>
-          <option value="name_asc">Nombre A→Z</option>
-          <option value="discount_desc">Descuento</option>
-        </select>
-      </div>
-
-      <div class="grid" id="grid"></div>
-      <div class="pager" id="pager"></div>
-    </div>
   </section>
 
-  <!-- Modal Detalle -->
-  <dialog id="detailModal">
-    <div class="modal-card">
-      <button id="closeModal" class="close">×</button>
-      <div class="modal-body">
-        <img id="mImg" alt="">
-        <div>
-          <h2 id="mName"></h2>
-          <p id="mBrand" class="muted"></p>
-          <div class="price" style="margin:10px 0">
-            <span id="mPrice" class="price-now"></span>
-            <span id="mOld" class="price-old"></span>
-          </div>
-          <div id="mInstall" class="install"></div>
-          <p id="mDesc" style="margin-top:8px"></p>
-          <div class="chips" id="mNotes"></div>
-          <div class="chips">
-            <span id="mFamily" class="chip"></span>
-            <span id="mGender" class="chip"></span>
-            <span id="mType" class="chip"></span>
-          </div>
-          <div class="cta-row">
-            <button id="mAddFav" class="btn secondary">❤️ Favorito</button>
-            <a id="mWhatsApp" class="btn" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- Footer -->
+  <!-- =============== FOOTER =============== -->
   <footer class="footer">
     <div class="footer-inner">
       <div>
         <h4>Suscribite al newsletter</h4>
         <p class="muted">Descuentos y lanzamientos exclusivos.</p>
         <div class="newsletter">
-          <input id="email" type="email" placeholder="tu@email.com"/>
+          <input id="email" type="email" placeholder="tu@email.com">
           <button id="subscribe">Suscribirme</button>
         </div>
       </div>
+
       <div>
         <h4>Ayuda</h4>
         <div class="trust">
@@ -143,6 +280,7 @@
           <span>📞 Contacto</span>
         </div>
       </div>
+
       <div>
         <h4>Medios</h4>
         <div class="trust">
@@ -151,44 +289,32 @@
           <span>🏦 Billeteras</span>
         </div>
       </div>
+
     </div>
   </footer>
 
-
-<!-- 🛒 SIDEBAR CARRITO -->
-<aside id="cartSidebar" class="cart-sidebar">
-  <div class="cart-header">
-    <h2>Mi carrito de compra</h2>
-    <button id="closeCart">×</button>
-  </div>
-
-  <div id="cartItems" class="cart-items"></div>
-
-  <div class="cart-footer">
-  <div class="cart-summary">
-    <div class="cart-line">
-      <span>Subtotal</span>
-      <span id="cartSubtotal">$0</span>
+  <!-- =============== CARRITO =============== -->
+  <aside id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h2>Mi carrito de compra</h2>
+      <button id="closeCart">×</button>
     </div>
-    <div class="cart-line" id="cartDiscountRow" style="display:none">
-      <span>Descuento 20% (5+ fragancias)</span>
-      <span id="cartDiscount">-$0</span>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: <span id="cartTotal">$0</span>
+      </div>
+      <button id="buyNow" class="btn">Comprar ahora</button>
+      <button id="keepShopping" class="btn secondary">Seguir comprando</button>
     </div>
-    <div class="cart-line cart-total">
-      <span>Total</span>
-      <span id="cartTotal">$0</span>
-    </div>
-  </div>
-  <button id="buyNow" class="btn">Comprar ahora</button>
-  <button id="keepShopping" class="btn secondary">Seguir comprando</button>
-</div>
+  </aside>
 
-</aside>
+  <div id="cartBackdrop" class="cart-backdrop"></div>
 
-<div id="cartBackdrop" class="cart-backdrop"></div>
-
+  <!-- =============== JS =============== -->
   <script src="script.js"></script>
 
 </body>
 </html>
-
