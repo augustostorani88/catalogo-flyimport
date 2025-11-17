@@ -13,20 +13,20 @@
 
 <body>
 
-  <!-- =============== PROMO SUPERIOR =============== -->
   <div class="promo">
     <div class="promo-inner">
       <span>💥 <b>HOT SALE</b>: 10% OFF extra con código <b>AROMA10</b></span>
       <span>·</span>
       <span>🚚 Envío gratis desde $200.000</span>
       <span>·</span>
-      <span>💳 Hasta 6 cuotas sin interés</span>
+      <span> jota tira goma </span>
     </div>
   </div>
 
-  <!-- =============== NAVBAR =============== -->
   <header class="nav">
     <div class="nav-inner">
+
+      <button id="mobileMenuBtn" class="icon-btn mobile-only" style="border:none; font-size:20px; margin-right:10px; display:none;">☰</button>
 
       <div class="brand">
         <span>Fly Import</span>
@@ -47,20 +47,17 @@
     </div>
   </header>
 
-  <!-- =============== PÁGINA DE INICIO =============== -->
   <section id="homePage" class="home-page">
 
-    <!-- Fondo animado aplicado acá -->
-    <div class="hero-anim">
-
-      <!-- Faja animada -->
+    <div class="hero-bg-anim">
+      
+      <div class="hero-extra-spin"></div>
       <div class="flyimport-hero-bar">
         <div class="flyimport-text">
-          Explora tu esencia perfecta · Explora tu esencia perfecta · Explora tu esencia perfecta · Explora tu esencia perfecta ·
+          Explora tu esencia perfecta · Explora tu esencia perfecta · Explora tu esencia perfecta ·
         </div>
       </div>
 
-      <!-- HERO -->
       <section class="hero-section">
         <div class="hero-inner">
 
@@ -75,87 +72,36 @@
           </div>
 
           <div class="hero-image">
-            <img src="assets/FlyImport_logo.png" alt="Fly Import Logo">
+            <img src="assets/FlyImport.png" class="img-base" alt="Fondo">
+            
+            <img src="assets/FlyImport_logo.png" class="img-plane" id="flyingPlane" alt="Avión">
           </div>
 
         </div>
       </section>
 
-    </div> <!-- fin hero anim -->
-
-    <!-- =============== PRODUCTOS DESTACADOS =============== -->
-    <section class="featured-section">
-      <h2>Productos destacados</h2>
-
-      <div class="featured-grid">
-
-        <!-- CARD 1 -->
-        <article class="featured-card">
-          <div class="featured-img-wrap">
-            <img src="assets/sauvage.jpg" alt="Dior Sauvage EDT">
+      <section class="featured-section">
+        <h2>Productos destacados</h2>
+        
+        <div class="carousel-container">
+          
+          <button class="carousel-btn prev-btn" id="prevBtn">❮</button>
+          
+          <div class="carousel-window">
+            <div class="carousel-track" id="featuredTrack"></div>
           </div>
+          
+          <button class="carousel-btn next-btn" id="nextBtn">❯</button>
+          
+        </div>
+      </section>
 
-          <h3 class="featured-name">Dior Sauvage EDT</h3>
-          <p class="featured-price">$145.000</p>
-
-          <div class="featured-qty">
-            <button class="featured-qty-btn">−</button>
-            <span class="featured-qty-value">1</span>
-            <button class="featured-qty-btn">+</button>
-          </div>
-
-          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
-        </article>
-
-        <!-- CARD 2 -->
-        <article class="featured-card">
-          <div class="featured-img-wrap">
-            <img src="assets/chanel-no5.jpg" alt="Chanel N°5 EDP">
-          </div>
-          <h3 class="featured-name">Chanel N°5 EDP</h3>
-          <p class="featured-price">$210.000</p>
-
-          <div class="featured-qty">
-            <button class="featured-qty-btn">−</button>
-            <span class="featured-qty-value">1</span>
-            <button class="featured-qty-btn">+</button>
-          </div>
-
-          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
-        </article>
-
-        <!-- CARD 3 -->
-        <article class="featured-card">
-          <div class="featured-img-wrap">
-            <img src="assets/lightblue.jpg" alt="Dolce & Gabbana Light Blue">
-          </div>
-
-          <h3 class="featured-name">Dolce & Gabbana Light Blue</h3>
-          <p class="featured-price">$118.000</p>
-
-          <div class="featured-qty">
-            <button class="featured-qty-btn">−</button>
-            <span class="featured-qty-value">1</span>
-            <button class="featured-qty-btn">+</button>
-          </div>
-
-          <button class="featured-add-btn">AGREGAR AL CARRITO</button>
-        </article>
-
-      </div>
-
-    </section> <!-- FIN destacados -->
-
-  </section> <!-- FIN home -->
-
-  <!-- =============== CATÁLOGO (OCULTO) =============== -->
-  <section id="catalogPage" class="catalog-page hidden">
+  </div></section> <section id="catalogPage" class="catalog-page hidden">
 
     <div class="bread">Inicio / Fragancias</div>
 
     <section class="layout">
 
-      <!-- SIDEBAR -->
       <aside>
         <div class="filters-card">
 
@@ -221,13 +167,12 @@
 
     </section>
 
-    <!-- MODAL PRODUCTO -->
     <dialog id="detailModal">
       <div class="modal-card">
         <button id="closeModal" class="close">×</button>
 
         <div class="modal-body">
-          <img id="mImg">
+          <img id="mImg" alt="Producto">
           <div>
             <h2 id="mName"></h2>
             <p id="mBrand" class="muted"></p>
@@ -260,7 +205,6 @@
 
   </section>
 
-  <!-- =============== FOOTER =============== -->
   <footer class="footer">
     <div class="footer-inner">
       <div>
@@ -293,7 +237,6 @@
     </div>
   </footer>
 
-  <!-- =============== CARRITO =============== -->
   <aside id="cartSidebar" class="cart-sidebar">
     <div class="cart-header">
       <h2>Mi carrito de compra</h2>
@@ -313,7 +256,6 @@
 
   <div id="cartBackdrop" class="cart-backdrop"></div>
 
-  <!-- =============== JS =============== -->
   <script src="script.js"></script>
 
 </body>
